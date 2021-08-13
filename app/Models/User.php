@@ -4,40 +4,44 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $table='users';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $guarded = [];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $filetable = ['uname','pass','mail','mpno','fname','lname','status'];
+
+    const CREATED_AT = 'olusturma_tarihi';
+    const UPDATED_AT = 'guncelleme_tarihi';
+    const DELETED_AT = 'silinme_tarihi';
+
+    public static function statusCode($status){
+
+        $data_ = [
+            'a' => [
+                'name' => 'Aktif',
+                'class' => 'badge bg-success'
+            ],
+            'p' => [
+                'name' => 'Pasif',
+                'class' => 'badge bg-warning'
+            ],
+            'ç' => [
+                'name' => 'Çöp',
+                'class' => 'badge bg-danger'
+            ],
+        ];
+
+        // 3. hafta 5. partta ayrıntılı tasarım yapıyor hoca
+        return '<span class="badge'.$data_[$status]['class'].'">'.$data_[$status]['name'].'</span>';
+
+    }
 }

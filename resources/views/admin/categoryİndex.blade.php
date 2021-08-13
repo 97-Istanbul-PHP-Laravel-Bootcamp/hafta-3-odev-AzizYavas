@@ -1,12 +1,13 @@
 @extends('admin.master')
 @section('title','KATEGORİ İNDEX')
 @section('content')
-
     <?php
 
     use App\Models\Category;
 
     ?>
+
+    @include('admin.layouts.alert')
 
     <div class="page-content">
         <section class="row">
@@ -20,6 +21,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Kategoriler</h4>
+                                            <a href="{{route('createform')}}" class="btn btn-outline-success">Ekle</a>
                                         </div>
                                         <div class="card-content">
                                             <!-- table head dark -->
@@ -38,7 +40,7 @@
                                                     </thead>
                                                     <tbody>
                                                     @foreach($category as $allcategory)
-                                                    <tr>
+                                                        <tr>
                                                             <td>{!! Category::statusCode($allcategory->status) !!}</td>
                                                             <td class="text-bold-500">{{$allcategory->title}}</td>
                                                             <td>{{$allcategory->description}}</td>
@@ -46,11 +48,12 @@
                                                             <td>{{$allcategory->olusturma_tarihi}}</td>
                                                             <td>{{$allcategory->guncelleme_tarihi}}</td>
                                                             <td>
-                                                                <a href="#" class="btn btn-outline-success">Ekle</a>
-                                                                <a href="{{route('categoryedit',$allcategory->slug)}}" class="btn btn-outline-primary">Güncelle</a>
-                                                                <a href="#" class="btn btn-outline-danger">Sil</a>
+                                                                <a href="edit/{{$allcategory->id}}"
+                                                                   class="btn btn-outline-primary">Güncelle</a>
+                                                                <a href="delete/{{$allcategory->id}}"
+                                                                   class="btn btn-outline-danger">Sil</a>
                                                             </td>
-                                                    </tr>
+                                                        </tr>
                                                     @endforeach
                                                     </tbody>
                                                 </table>
@@ -69,4 +72,14 @@
     </div>
 
 
+@endsection
+
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.alert').slideUp(500)
+            }, 3000);
+        });
+    </script>
 @endsection

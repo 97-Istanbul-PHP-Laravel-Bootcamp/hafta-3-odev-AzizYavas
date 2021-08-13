@@ -1,11 +1,9 @@
 @extends('admin.master')
-@section('title','Ürünler İNDEX')
+@section('title','SATIŞ İNDEX')
 @section('content')
-
     <?php
 
-    use App\Models\Product;
-    use App\Models\Category;
+    use App\Models\Sale;
 
     ?>
 
@@ -22,8 +20,7 @@
                                 <div class="col-12 col-lg-12 col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Ürünler</h4>
-                                            <a href="{{route('productform')}}" class="btn btn-outline-success">Ürün Ekle</a>
+                                            <h4 class="card-title">Satılan Ürünler</h4>
                                         </div>
                                         <div class="card-content">
                                             <!-- table head dark -->
@@ -31,40 +28,32 @@
                                                 <table class="table mb-0">
                                                     <thead class="thead-dark">
                                                     <tr>
-                                                        <th>Durum</th>
-                                                        <th>Kategori İd</th>
                                                         <th>Kullanıcı İd</th>
-                                                        <th>Stok Numara</th>
-                                                        <th>Url</th>
-                                                        <th>Ürün İsmi</th>
-                                                        <th>Açıklama</th>
-                                                        <th>Ürün Sırası</th>
-                                                        <th>Fiyatı</th>
-                                                        <th>Kur Bilgisi</th>
-                                                        <th>Kayıt Tarihi</th>
+                                                        <th>Sipariş Numarası</th>
+                                                        <th>Ürün İd</th>
+                                                        <th>Satış Numarası</th>
+                                                        <th>Satış Fiyatı</th>
+                                                        <th>Satış Kuru</th>
+                                                        <th>Satış Tarihi</th>
                                                         <th>Güncelleme Tarihi</th>
                                                         <th>Ayarlar</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product as $allproduct)
+                                                    @foreach($sale as $allsale)
                                                         <tr>
-                                                            <td>{!! Product::statusCode($allproduct->status) !!}</td>
-                                                            <td class="text-bold-500">{{$allproduct->category_id}}</td>
-                                                            <td>{{$allproduct->user_id}}</td>
-                                                            <td class="text-bold-500">{{$allproduct->unicode}}</td>
-                                                            <td>{{$allproduct->slug}}</td>
-                                                            <td>{{$allproduct->title}}</td>
-                                                            <td>{{$allproduct->description}}</td>
-                                                            <td class="text-bold-500">{{$allproduct->order}}</td>
-                                                            <td>{{$allproduct->prc}}</td>
-                                                            <td class="text-bold-500">{{$allproduct->cid}}</td>
-                                                            <td>{{$allproduct->olusturma_tarihi}}</td>
-                                                            <td>{{$allproduct->guncelleme_tarihi}}</td>
+                                                            <td class="text-bold-500">{{$allsale->user_id}}</td>
+                                                            <td>{{$allsale->orid}}</td>
+                                                            <td class="text-bold-500">{{$allsale->product_id}}</td>
+                                                            <td>{{$allsale->code}}</td>
+                                                            <td>{{$allsale->prc}}</td>
+                                                            <td>{{$allsale->cid}}</td>
+                                                            <td>{{$allsale->sale_date}}</td>
+                                                            <td>{{$allsale->guncelleme_tarihi}}</td>
                                                             <td>
-                                                                <a href="edit/{{$allproduct->id}}"
+                                                                <a href="edit/{{$allsale->id}}"
                                                                    class="btn btn-outline-primary">Güncelle</a>
-                                                                <a href="delete/{{$allproduct->id}}"
+                                                                <a href="delete/{{$allsale->id}}"
                                                                    class="btn btn-outline-danger">Sil</a>
                                                             </td>
                                                         </tr>
@@ -87,6 +76,7 @@
 
 
 @endsection
+
 @section('footer')
     <script>
         $(document).ready(function () {

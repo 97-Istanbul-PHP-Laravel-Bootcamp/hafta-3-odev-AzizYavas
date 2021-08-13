@@ -4,12 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
     use HasFactory;
 
+    use SoftDeletes;
+
     protected $table='category';
+
+    protected $guarded = [];
+
+    protected $filetable = ['title','description','slug','status'];
+
+    const CREATED_AT = 'olusturma_tarihi';
+    const UPDATED_AT = 'guncelleme_tarihi';
+    const DELETED_AT = 'silinme_tarihi';
+
 
     public static function statusCode($status){
 

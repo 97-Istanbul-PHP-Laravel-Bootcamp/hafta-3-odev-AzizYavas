@@ -12,14 +12,16 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-vertical">
+                            <form class="form form-vertical" action="{{route('update')}}" method="post">
+                            @csrf
+                                <input type="hidden" name="id" value="{{$categoryedit->id}}">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
                                                 <label for="first-name-icon">Kategori Başlığı</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="title" value="{{ $categoryedit->title }}" class="form-control">
+                                                    <input type="text" name="title" value="{{$categoryedit->title}}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -33,8 +35,13 @@
                                                                 <div class="card">
                                                                     <div class="card-body">
                                                                         <div class="form-group">
-                                                                            <label for="exampleFormControlTextarea1" class="form-label">Kategori Açıklama</label>
-                                                                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                                                            <label for="exampleFormControlTextarea1"
+                                                                                   class="form-label">Kategori
+                                                                                Açıklama</label>
+                                                                            <textarea class="form-control"
+                                                                                      name="description"
+                                                                                      id="exampleFormControlTextarea1"
+                                                                                      rows="2">{{$categoryedit->description}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -48,7 +55,8 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Kategori URL</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="furl" class="form-control" id="email-id-icon">
+                                                    <input type="text" name="slug" value="{{$categoryedit->slug}}"
+                                                           class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -57,8 +65,12 @@
                                             <h6>Kategori Durum</h6>
                                             <fieldset class="form-group">
                                                 <select class="form-select" name="status" id="basicSelect">
-                                                    <option value="a" @if($category->status == 'a') selected @endif>Aktif</option>
-                                                    <option value="p" @if($category->status == 'p') selected @endif>Pasif</option>
+                                                    <option value="a"
+                                                            @if($categoryedit->status === 'a') selected @endif>Aktif
+                                                    </option>
+                                                    <option value="p"
+                                                            @if($categoryedit->status === 'p') selected @endif>Pasif
+                                                    </option>
                                                 </select>
                                             </fieldset>
                                         </div>
